@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+  backend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+        - static_volume:/app/static
+        - media_volume:/app/media
+    entrypoint: /app/docker/entrypoints/wsgi-entrypoint.sh
+    networks:
+      - my-network
+    env_file:
+      - .env
+
+
+
+volumes:
+  static_volume:
+  media_volume:
+  redis_data:
+
+networks:
+  my-network:
