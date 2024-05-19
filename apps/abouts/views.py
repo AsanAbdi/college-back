@@ -97,7 +97,7 @@ class Sending(APIView):
             receiver = Email_sending.objects.all().first()
             send_mail(
                 subject="Question from Student: " + data.validated_data["name"],
-                message="Вопрос: " + data.validated_data['question'] + "\n почта для ответа: " + data.validated_data["email"],
+                message="Вопрос: " + data.validated_data['info_text'] + "\n почта для ответа: " + data.validated_data["email"],
                 from_email=receiver,
                 recipient_list=[receiver, ], #TODO change to univer email
             )
