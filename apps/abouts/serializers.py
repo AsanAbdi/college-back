@@ -8,7 +8,9 @@ class Email_sendingSerializer(serializers.ModelSerializer):
 
 
 class SendingSerializer(serializers.Serializer):
-    question = serializers.CharField()
+    info_text = serializers.CharField()
+    name = serializers.CharField()
+    email = serializers.EmailField()
 
 
 class FAQSerializer(serializers.ModelSerializer):

@@ -16,7 +16,7 @@ class Admission_dateAdmin(admin.ModelAdmin):
 
 @admin.register(Specialtie)
 class SpecialtieAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "description", "study_time", "type", "budget", "mini_description"]
+    list_display = ["id", "title", "description", "study_time", "type", "budget", ]
 
 @admin.register(Scholorship_grant)
 class Scholorship_grantAdmin(admin.ModelAdmin):

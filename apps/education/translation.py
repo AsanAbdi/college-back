@@ -15,7 +15,7 @@ class Admission_dateModelTranslation(TranslationOptions):
 
 @register(Specialtie)
 class SpecialtieModelTranslation(TranslationOptions):
-    fields = ("title", "description", "mini_description")
+    fields = ("title", "description", )
 
 
 @register(Scholorship_grant)
