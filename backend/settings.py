@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'modeltranslation',
+    'django_filters'
     'decouple',
 
     # my apps
