@@ -6,6 +6,8 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from django_filters import rest_framework as filters
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from django.db.models import Q
 from apps.education.models import *
@@ -113,9 +115,19 @@ class Sending(APIView):
             return Response({"error": str(e)}, status=400)
     
 
-
+query_param = openapi.Parameter(
+    'q',
+    openapi.IN_QUERY,
+    description="Поисковый запрос",
+    type=openapi.TYPE_STRING,
+    required=True
+)
 
 class GlobalSearchView(APIView):
+    @swagger_auto_schema(
+        manual_parameters=[query_param],
+        responses={200: openapi.Response(description="Результаты поиска")}
+    )
     def get(self, request, *args, **kwargs):
         query = request.query_params.get('q', None)
         if not query:
