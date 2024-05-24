@@ -54,5 +54,6 @@ router.register(
 
 urlpatterns = [
     path("", include(router.urls)),
-    path('sending/', Sending.as_view(), name='sending')
+    path('sending/', Sending.as_view(), name='sending'),
+    path("global-search/", GlobalSearchView.as_view(), name='global-search')
 ]

@@ -7,6 +7,13 @@ from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from django_filters import rest_framework as filters
 
+from django.db.models import Q
+from apps.education.models import *
+from apps.events.models import *
+from apps.news.models import *
+from apps.education.serializers import *
+from apps.events.serializers import *
+from apps.news.serializers import *
 from .models import *
 from .serializers import *
 
@@ -104,3 +111,45 @@ class Sending(APIView):
             return Response({"message": "success"}, status=200)
         except Exception as e:
             return Response({"error": str(e)}, status=400)
+    
+
+
+
+class GlobalSearchView(APIView):
+    def get(self, request, *args, **kwargs):
+        query = request.query_params.get('q', None)
+        if not query:
+            return Response({"error": "Query parameter 'q' is required."}, status=400)
+        results = []
+
+        news_results = News.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+        results.extend(NewsSerializer(news_results, many=True).data)
+
+        images_for_multimedia_results = Images_for_multimedia.objects.filter(
+            Q(title__icontains=query) | Q(type__icontains=query)
+        )
+        results.extend(Images_for_multimediaSerializer(images_for_multimedia_results, many=True).data)
+    
+        Specialtie_results = Specialtie.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query) | Q(type__icontains=query) | Q(budget__icontains=query)
+        )
+        results.extend(SpecialtieSerializer(Specialtie_results, many=True).data)
+
+        sample_results = Sample.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+        results.extend(SampleSerializer(sample_results, many=True).data)
+
+        Courses_programms_results = Courses_programms.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query) | Q(duration__icontains=query) | Q(mini_description__icontains=query) | Q(price__icontains=query) | Q(type__icontains=query)
+        )
+        results.extend(Courses_programmsSerializer(Courses_programms_results, many=True).data)
+
+        Lecturer_results = Lecturer.objects.filter(
+            Q(name__icontains=query) | Q(age__icontains=query) | Q(bio__icontains=query) | Q(subject__icontains=query)
+        )
+        results.extend(LecturerSerializer(Lecturer_results, many=True).data)
+
+        return Response(results)
