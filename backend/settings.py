@@ -165,5 +165,5 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 3
 }
