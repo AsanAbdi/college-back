@@ -137,31 +137,31 @@ class GlobalSearchView(APIView):
         news_results = News.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-        results["news"] = (NewsSerializer(news_results, many=True).data)
+        results["news"] = (NewsSerializer(news_results, many=True, context={'request': request}).data)
 
         images_for_multimedia_results = Images_for_multimedia.objects.filter(
             Q(title__icontains=query) | Q(type__icontains=query)
         )
-        results["images_for_multimedia"] = (Images_for_multimediaSerializer(images_for_multimedia_results, many=True).data)
+        results["images_for_multimedia"] = (Images_for_multimediaSerializer(images_for_multimedia_results, many=True, context={'request': request}).data)
     
         Specialtie_results = Specialtie.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query) | Q(type__icontains=query) | Q(budget__icontains=query)
         )
-        results["specialtie"] = (SpecialtieSerializer(Specialtie_results, many=True).data)
+        results["specialtie"] = (SpecialtieSerializer(Specialtie_results, many=True, context={'request': request}).data)
 
         sample_results = Sample.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-        results["sample"] = (SampleSerializer(sample_results, many=True).data)
+        results["sample"] = (SampleSerializer(sample_results, many=True, context={'request': request}).data)
 
         Courses_programms_results = Courses_programms.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query) | Q(duration__icontains=query) | Q(mini_description__icontains=query) | Q(price__icontains=query) | Q(type__icontains=query)
         )
-        results["courses_and_programms"] = (Courses_programmsSerializer(Courses_programms_results, many=True).data)
+        results["courses_and_programms"] = (Courses_programmsSerializer(Courses_programms_results, many=True, context={'request': request}).data)
 
         Lecturer_results = Lecturer.objects.filter(
             Q(name__icontains=query) | Q(age__icontains=query) | Q(bio__icontains=query) | Q(subject__icontains=query)
         )
-        results["lecturer"] = (LecturerSerializer(Lecturer_results, many=True).data)
+        results["lecturer"] = (LecturerSerializer(Lecturer_results, many=True, context={'request': request}).data)
 
         return Response(results)
