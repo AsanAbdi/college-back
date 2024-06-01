@@ -38,7 +38,7 @@ class Courses_programms(models.Model):
     mini_description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
     price = models.IntegerField(verbose_name='Цена')
     type = models.CharField(max_length=25, verbose_name='Для кого', choices=TypeChoice.choices)
-    image = models.FileField(upload_to="courses_and_programms", verbose_name='Картинка')
+    image = models.FileField(verbose_name='Файл', upload_to='coursesProgramms')
 
 
 class Schedule(models.Model):
