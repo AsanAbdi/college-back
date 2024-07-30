@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.timezone import now
+from ckeditor.fields import RichTextField
 
 class News(models.Model):
     title = models.CharField(max_length=255, verbose_name='заголовок', null=True, blank=True)
-    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    description = RichTextField()
     image = models.FileField(verbose_name='Картинка', upload_to='news')
     date = models.DateTimeField(default=now, verbose_name='Дата')
 

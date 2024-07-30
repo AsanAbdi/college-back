@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 class Email_sending(models.Model):
@@ -18,13 +19,13 @@ class Contact_information(models.Model):
         extra_number = "extra number"
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     type = models.CharField(max_length=20, choices=TypeChoice.choices, verbose_name="Тип")
-    text = models.TextField(verbose_name='Текст', null=True, blank=True)
+    text = RichTextField()
 
 
 class Sertificate(models.Model):
     image = models.FileField(verbose_name='Картинка', upload_to='sertificates')
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
-    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    description = RichTextField()
 
 
 class Images_for_multimedia(models.Model):
@@ -55,11 +56,11 @@ class Lecturer(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя", null=True, blank=True)
     avatar = models.FileField(upload_to='avatars', verbose_name='Фотография')
     age = models.IntegerField(verbose_name='Возраст')
-    bio = models.TextField(verbose_name="Информация", null=True, blank=True)
+    bio = RichTextField()
     subject = models.CharField(max_length=255, verbose_name='Предмет', null=True, blank=True)
 
 
 class Sample(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
-    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    description = RichTextField()
     file = models.FileField(verbose_name='Файл', upload_to='samples')
