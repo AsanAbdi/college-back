@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 
 class Event(models.Model):
     class TypeChoice(models.TextChoices):
@@ -8,6 +8,6 @@ class Event(models.Model):
     title = models.CharField(verbose_name='Название', max_length=255, null=True, blank=True)
     background = models.FileField(verbose_name='Фон', upload_to='events')
     duration = models.CharField(max_length=255, verbose_name='Длительность', null=True, blank=True)
-    description = RichTextField()
+    description = HTMLField()
     location = models.CharField(max_length=255, verbose_name='Локация', null=True, blank=True)
     type = models.CharField(max_length=25, verbose_name='Тип мероприятия', choices=TypeChoice.choices)

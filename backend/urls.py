@@ -61,5 +61,9 @@ urlpatterns += i18n_patterns(
     path("api/v1/", include(api_urlpatterns)),
 )
 
+urlpatterns += [
+    path('tinymce/', include('tinymce.urls')),
+]
+
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
