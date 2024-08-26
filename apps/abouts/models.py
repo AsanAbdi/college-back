@@ -1,5 +1,4 @@
 from django.db import models
-from tinymce.models import HTMLField
 
 class Email_sending(models.Model):
     receiver = models.EmailField(max_length=254, verbose_name='Получатель')
@@ -18,13 +17,13 @@ class Contact_information(models.Model):
         extra_number = "extra number"
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     type = models.CharField(max_length=20, choices=TypeChoice.choices, verbose_name="Тип")
-    text = HTMLField()
+    text = models.TextField(verbose_name="Описание")
 
 
 class Sertificate(models.Model):
     image = models.FileField(verbose_name='Картинка', upload_to='sertificates')
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
-    description = HTMLField()
+    description = models.TextField(verbose_name="Описание")
 
 
 class Images_for_multimedia(models.Model):
@@ -55,11 +54,11 @@ class Lecturer(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя", null=True, blank=True)
     avatar = models.FileField(upload_to='avatars', verbose_name='Фотография')
     age = models.IntegerField(verbose_name='Возраст')
-    bio = HTMLField()
+    bio = models.TextField(verbose_name="Био")
     subject = models.CharField(max_length=255, verbose_name='Предмет', null=True, blank=True)
 
 
 class Sample(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
-    description = HTMLField()
+    description = models.TextField(verbose_name="Описание")
     file = models.FileField(verbose_name='Файл', upload_to='samples')

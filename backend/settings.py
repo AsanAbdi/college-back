@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_filters',
     'decouple',
-    'tinymce',
 
     # my apps
     'apps.abouts',
