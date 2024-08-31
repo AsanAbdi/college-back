@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.timezone import now
+
 
 class Email_sending(models.Model):
     receiver = models.EmailField(max_length=254, verbose_name='Получатель')
@@ -62,3 +64,4 @@ class Sample(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
     description = models.TextField(verbose_name="Описание")
     file = models.FileField(verbose_name='Файл', upload_to='samples')
+    date = models.DateTimeField(verbose_name="Дата", default=now)

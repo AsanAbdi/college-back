@@ -64,4 +64,4 @@ class LecturerAdmin(admin.ModelAdmin):
 
 @admin.register(Sample)
 class SampleAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "description", "file"]
+    list_display = ["id", "title", "description", "file", "date"]
