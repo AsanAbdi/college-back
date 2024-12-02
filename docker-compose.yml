@@ -1,29 +1,34 @@
-version: '3.7'
+version: '3.8'
 
 services:
+  db:
+    image: postgres:14
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: college_db
+      POSTGRES_USER: college_user
+      POSTGRES_PASSWORD: college_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-  backend:
-    restart: unless-stopped
+  web:
     build:
       context: .
-      dockerfile: ./docker/backend/Dockerfile
+      dockerfile: docker/backend/Dockerfile
+    container_name: django_container
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./static:/app/static
     ports:
       - "8000:8000"
-    volumes:
-        - static_volume:/app/static
-        - media_volume:/app/media
-    entrypoint: /app/docker/entrypoints/wsgi-entrypoint.sh
-    networks:
-      - my-network
+    depends_on:
+      - db
     env_file:
       - .env
 
-
-
 volumes:
-  static_volume:
-  media_volume:
-  redis_data:
-
-networks:
-  my-network:
+  postgres_data:
