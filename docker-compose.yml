@@ -5,20 +5,19 @@ services:
     image: postgres:14
     container_name: postgres_container
     environment:
-      POSTGRES_DB: college_db
-      POSTGRES_USER: college_user
-      POSTGRES_PASSWORD: college_password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - knau_db:/var/lib/postgresql/data
 
   web:
     build:
       context: .
       dockerfile: docker/backend/Dockerfile
     container_name: django_container
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
       - ./media:/app/media
@@ -29,6 +28,6 @@ services:
       - db
     env_file:
       - .env
-
+      
 volumes:
-  postgres_data:
+  knau_db:

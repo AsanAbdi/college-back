@@ -7,16 +7,18 @@ done
 
 until python manage.py makemigrations
 do 
-    echo "Waiting for db migrations"
+    echo "Waiting for database to be ready for migrations..."
+    sleep 2
 done
 
 until python manage.py migrate
 do
-    echo "Waiting for db to be ready..."
-    sleep 1
+    echo "Waiting for database to accept migrations..."
+    sleep 2
 done
 
 python manage.py collectstatic --noinput
+
 python manage.py compilemessages
 
-gunicorn tamyr.wsgi --bind 0.0.0.0:8000 --workers 4 --threads 2
+exec gunicorn tamyr.wsgi:application --bind 0.0.0.0:8000 --workers 4 --threads 2

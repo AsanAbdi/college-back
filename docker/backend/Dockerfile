@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 
-RUN python manage.py collectstatic --noinput
+COPY docker/backend/wsgi-entrypoint.sh /wsgi-entrypoint.sh
+RUN chmod +x /wsgi-entrypoint.sh
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["/wsgi-entrypoint.sh"]
